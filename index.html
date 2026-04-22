@@ -235,15 +235,15 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
   <div class="fsec">
     <div class="fsh" onclick="togSec(this)">
       <div class="fsi red">🤖</div>
-      <div><div class="fst">AI 解析填入</div><div class="fss">把資料給 Claude 解析，貼回 JSON 自動填入所有欄位</div></div>
+      <div><div class="fst">AI 解析填入</div><div class="fss">Claude · ChatGPT · Gemini 均可 — 貼回 JSON 自動填入</div></div>
       <div class="farr">▶</div>
     </div>
     <div class="fsb hide">
       <div class="ai-step">
         <div class="ai-step-num">1</div>
         <div class="ai-step-body">
-          <div class="ai-step-title">複製解析指令，連同檔案一起給 Claude</div>
-          <div class="ai-step-desc">點下方複製指令，貼到<strong>對話框</strong>並上傳你的檔案（PDF、Word、圖片、文字均可）。Claude 讀取後回傳 JSON。</div>
+          <div class="ai-step-title">複製解析指令，連同資料給任一 AI 助手</div>
+          <div class="ai-step-desc">點下方複製指令，貼到 <strong>Claude / ChatGPT / Gemini</strong> 對話框並上傳檔案（PDF、Word、圖片、文字均可），AI 回傳 JSON。</div>
           <button class="btn bp" style="margin-top:8px" onclick="copyPrompt()">📋 複製解析指令</button>
           <div id="copy-ok" style="display:none;margin-top:6px;font-size:12px;color:var(--grn)">✅ 已複製！請貼到對話框並附上你的檔案</div>
         </div>
@@ -252,8 +252,8 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
       <div class="ai-step">
         <div class="ai-step-num">2</div>
         <div class="ai-step-body">
-          <div class="ai-step-title">把 Claude 回傳的 JSON 貼到這裡套用</div>
-          <div class="ai-step-desc">複製 Claude 回傳的完整 JSON，貼到下方，點「套用」即自動填入所有欄位。</div>
+          <div class="ai-step-title">把 AI 回傳的 JSON 貼到這裡套用</div>
+          <div class="ai-step-desc">複製 AI 回傳的完整 JSON，貼到下方，點「套用」即自動填入所有欄位，已手動填寫的欄位不會被覆蓋。</div>
           <textarea id="paste-json" class="fta" style="min-height:90px;font-family:monospace;font-size:12px;margin-top:8px" placeholder='{"proj":"...","co":"...","cname":"...",...}'></textarea>
           <button class="btn bp" style="margin-top:8px;width:100%;justify-content:center" onclick="applyJSON()">✅ 套用解析結果到表單</button>
           <div id="apply-ok" style="display:none;margin-top:6px;font-size:12px;color:var(--grn)"></div>
@@ -326,11 +326,12 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
         </div>
       </div>
       <div class="brand-box" id="brand-box">
-        <div class="brand-box-hdr">品牌查詢指令（複製後貼到對話框）</div>
+        <div class="brand-box-hdr" id="brand-box-hdr">🤖 AI 備用查詢指令（Wikipedia 未找到時）</div>
         <div class="brand-box-body">
+          <div style="font-size:11px;color:var(--t2);margin-bottom:6px;">複製以下指令給 Claude / ChatGPT / Gemini，回傳後貼入套用：</div>
           <div id="brand-prompt-txt" style="font-size:12px;color:var(--t2);background:var(--gl);border:1px solid rgba(43,90,60,.15);border-radius:6px;padding:8px 10px;line-height:1.7;white-space:pre-wrap;margin-bottom:8px"></div>
           <button class="btn bg2" onclick="copyBrandPrompt()">📋 複製指令</button>
-          <div class="fl" style="margin-top:10px;margin-bottom:4px">貼上 Claude 回傳的品牌說明：</div>
+          <div class="fl" style="margin-top:10px;margin-bottom:4px">貼上 AI 回傳的品牌說明：</div>
           <textarea id="brand-paste" class="fta" style="min-height:60px"></textarea>
           <button class="btn bg2" style="margin-top:6px" onclick="applyBrand()">↓ 套用到品牌介紹欄位</button>
         </div>
@@ -362,13 +363,13 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
       <div class="fr">
         <div class="fg"><label class="fl">需求類型（可多選）</label>
           <div class="chips" id="c-type">
-            <label class="chip" onclick="ck(this)"><input value="Branding">Branding</label>
-            <label class="chip" onclick="ck(this)"><input value="Event">Event</label>
-            <label class="chip" onclick="ck(this)"><input value="Exhibition">Exhibition</label>
-            <label class="chip" onclick="ck(this)"><input value="Pop-Up Store">Pop-Up Store</label>
-            <label class="chip" onclick="ck(this)"><input value="Campaign">Campaign</label>
-            <label class="chip" onclick="ck(this)"><input value="Production">Production</label>
-            <label class="chip" onclick="ck(this)"><input value="其他">其他</label>
+            <label class="chip" onclick="ck(this,event)"><input value="Branding">Branding</label>
+            <label class="chip" onclick="ck(this,event)"><input value="Event">Event</label>
+            <label class="chip" onclick="ck(this,event)"><input value="Exhibition">Exhibition</label>
+            <label class="chip" onclick="ck(this,event)"><input value="Pop-Up Store">Pop-Up Store</label>
+            <label class="chip" onclick="ck(this,event)"><input value="Campaign">Campaign</label>
+            <label class="chip" onclick="ck(this,event)"><input value="Production">Production</label>
+            <label class="chip" onclick="ck(this,event)"><input value="其他">其他</label>
           </div>
         </div>
       </div>
@@ -411,13 +412,13 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
       <div class="fr">
         <div class="fg"><label class="fl">希望企劃後能完成</label>
           <div class="chips" id="c-goals">
-            <label class="chip" onclick="ck(this)"><input value="品牌曝光">品牌曝光</label>
-            <label class="chip" onclick="ck(this)"><input value="導流轉換">導流轉換</label>
-            <label class="chip" onclick="ck(this)"><input value="新品上市">新品上市</label>
-            <label class="chip" onclick="ck(this)"><input value="口碑建立">口碑建立</label>
-            <label class="chip" onclick="ck(this)"><input value="銷售業績">銷售業績</label>
-            <label class="chip" onclick="ck(this)"><input value="會員招募">會員招募</label>
-            <label class="chip" onclick="ck(this)"><input value="媒體聲量">媒體聲量</label>
+            <label class="chip" onclick="ck(this,event)"><input value="品牌曝光">品牌曝光</label>
+            <label class="chip" onclick="ck(this,event)"><input value="導流轉換">導流轉換</label>
+            <label class="chip" onclick="ck(this,event)"><input value="新品上市">新品上市</label>
+            <label class="chip" onclick="ck(this,event)"><input value="口碑建立">口碑建立</label>
+            <label class="chip" onclick="ck(this,event)"><input value="銷售業績">銷售業績</label>
+            <label class="chip" onclick="ck(this,event)"><input value="會員招募">會員招募</label>
+            <label class="chip" onclick="ck(this,event)"><input value="媒體聲量">媒體聲量</label>
           </div>
         </div>
       </div>
@@ -469,11 +470,11 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
         <div class="fg"><label class="fl">提案對象 Keyman</label><input class="fi" id="f-keyman"></div>
         <div class="fg"><label class="fl">提案交付內容</label>
           <div class="chips" id="c-deliverable">
-            <label class="chip" onclick="ck(this)"><input value="預算規劃">預算規劃</label>
-            <label class="chip" onclick="ck(this)"><input value="企劃內容">企劃內容</label>
-            <label class="chip" onclick="ck(this)"><input value="禮贈品建議">禮贈品建議</label>
-            <label class="chip" onclick="ck(this)"><input value="視覺提案">視覺提案</label>
-            <label class="chip" onclick="ck(this)"><input value="報價單">報價單</label>
+            <label class="chip" onclick="ck(this,event)"><input value="預算規劃">預算規劃</label>
+            <label class="chip" onclick="ck(this,event)"><input value="企劃內容">企劃內容</label>
+            <label class="chip" onclick="ck(this,event)"><input value="禮贈品建議">禮贈品建議</label>
+            <label class="chip" onclick="ck(this,event)"><input value="視覺提案">視覺提案</label>
+            <label class="chip" onclick="ck(this,event)"><input value="報價單">報價單</label>
           </div>
         </div>
       </div>
@@ -499,11 +500,11 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
         </div>
         <div class="fg"><label class="fl">好客戶條件評分</label>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px" id="c-criteria">
-            <label class="chip" onclick="ck(this)" style="font-size:11px"><input value="有預算100w＋">💰 有預算 100w＋</label>
-            <label class="chip" onclick="ck(this)" style="font-size:11px"><input value="窗口聰明">🧠 窗口聰明</label>
-            <label class="chip" onclick="ck(this)" style="font-size:11px"><input value="時間能配合">⏰ 時間能配合</label>
-            <label class="chip" onclick="ck(this)" style="font-size:11px"><input value="內容例行">📋 內容例行</label>
-            <label class="chip" onclick="ck(this)" style="font-size:11px"><input value="風險可控">✅ 風險可控</label>
+            <label class="chip" onclick="ck(this,event)" style="font-size:11px"><input value="有預算100w＋">💰 有預算 100w＋</label>
+            <label class="chip" onclick="ck(this,event)" style="font-size:11px"><input value="窗口聰明">🧠 窗口聰明</label>
+            <label class="chip" onclick="ck(this,event)" style="font-size:11px"><input value="時間能配合">⏰ 時間能配合</label>
+            <label class="chip" onclick="ck(this,event)" style="font-size:11px"><input value="內容例行">📋 內容例行</label>
+            <label class="chip" onclick="ck(this,event)" style="font-size:11px"><input value="風險可控">✅ 風險可控</label>
           </div>
         </div>
       </div>
@@ -855,7 +856,7 @@ function togSec(h) {
 }
 
 // ── Chips ──
-function ck(l) { l.classList.toggle('on'); }
+function ck(l, ev) { if (ev) ev.preventDefault(); l.classList.toggle('on'); }
 function getChips(id) { return [...document.querySelectorAll('#'+id+' .chip.on input')].map(i=>i.value); }
 function setChips(id, vals) {
   document.querySelectorAll('#'+id+' .chip').forEach(c => {
@@ -986,6 +987,7 @@ function applyJSON() {
     ok.style.display = 'block';
     ok.textContent = '✅ 套用完成（已填欄位保留）— ' + [p.co&&'公司：'+p.co, p.cname&&'窗口：'+p.cname, p.what&&'活動：'+p.what, p.budget&&'預算：'+p.budget].filter(Boolean).join('  ·  ');
     toast('✅ 套用完成！綠色為 AI 填入，手動輸入的欄位已保留');
+    updateFltVerdict();
   } catch(e) { toast('⚠️ JSON 格式錯誤：' + e.message.slice(0,50)); }
 }
 
@@ -998,13 +1000,45 @@ function schedBrand() {
     if (n.length > 1 && n !== _lb) { _lb = n; queryBrand(true); }
   }, 900);
 }
-function queryBrand(auto) {
+async function queryBrand(auto) {
   const name = (g('f-co').value || g('f-brand').value).trim();
   if (!name) { if (!auto) toast('⚠️ 請先填入公司或品牌名稱'); return; }
+  const hint = g('brand-hint');
+  hint.style.color = 'var(--t3)';
+  hint.textContent = '🔍 搜尋中…';
+  // Try Wikipedia (zh → en)
+  for (const lang of ['zh', 'en']) {
+    try {
+      const sr = await fetch(`https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(name)}&srlimit=1&format=json&origin=*`);
+      const sd = await sr.json();
+      const title = sd.query?.search?.[0]?.title;
+      if (!title) continue;
+      const pr = await fetch(`https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);
+      const pd = await pr.json();
+      if (!pd.extract || pd.extract.length < 30) continue;
+      const extract = pd.extract.slice(0, 500);
+      const introEl = g('f-brand-intro');
+      if (!introEl.value.trim()) {
+        introEl.value = extract;
+        introEl.classList.add('filled');
+        setTimeout(() => introEl.classList.remove('filled'), 3000);
+      }
+      hint.style.color = 'var(--grn)';
+      hint.textContent = `✅ 已從 Wikipedia (${lang}) 自動帶入 · 可手動補充`;
+      toast('✅ 品牌資料已自動帶入！');
+      return;
+    } catch(e) { continue; }
+  }
+  // Fallback: show AI prompt box
   const prompt = '請查詢「' + name + '」品牌，用繁體中文提供：\n【品牌介紹】產業別、主要產品/服務、品牌定位（3句）\n【目前現況】近期行銷動態或過往活動（2句）\n【官網】如知道請提供網址\n不確定的部分請說明。';
   g('brand-box').style.display = 'block';
   g('brand-prompt-txt').textContent = prompt;
-  g('brand-hint').textContent = '👆 複製指令後貼到對話框，Claude 回傳後再貼下方套用';
+  hint.style.color = 'var(--amb)';
+  hint.textContent = '⚠ Wikipedia 未找到，請複製下方指令給 AI 助手手動帶入';
+  if (!auto) {
+    window.open('https://www.perplexity.ai/search?q=' + encodeURIComponent(name + ' 品牌介紹 官網'), '_blank');
+    toast('⚠ 自動搜尋未找到 · 已開啟 Perplexity，也可複製 AI 指令');
+  }
 }
 function copyBrandPrompt() {
   const txt = g('brand-prompt-txt').textContent;
