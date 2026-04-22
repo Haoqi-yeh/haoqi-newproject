@@ -161,6 +161,27 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
 .score-num{font-size:16px;font-weight:700;color:var(--red);}
 .sl-sem{font-size:11px;font-weight:500;margin-top:4px;padding:3px 8px;border-radius:5px;background:var(--s2);color:var(--t2);transition:all .2s;}
 .sl-scale{display:flex;justify-content:space-between;font-size:10px;color:var(--t3);margin-top:3px;}
+/* ── Floating widget ── */
+.flt-wrap{position:fixed;bottom:24px;right:24px;z-index:900;display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+.flt-fab{width:52px;height:52px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;font-size:20px;box-shadow:0 4px 18px rgba(232,56,74,.45);transition:all .2s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;line-height:1;}
+.flt-fab:hover{background:var(--redm);transform:scale(1.07);}
+.flt-fab-lbl{font-size:8px;font-family:'Noto Sans TC',sans-serif;letter-spacing:.3px;}
+.flt-panel{background:var(--sf);border:1px solid var(--bd);border-radius:14px;width:316px;max-height:80vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.16);display:none;flex-direction:column;}
+.flt-panel.open{display:flex;}
+.flt-hdr{padding:.6rem 1rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--sf);z-index:2;flex-shrink:0;}
+.flt-hdr-l{font-size:13px;font-weight:600;color:var(--red);}
+.flt-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--t3);padding:0 4px;line-height:1;}
+.flt-verdict-bar{padding:.45rem 1rem;background:var(--s2);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.flt-verdict-dot{font-size:15px;line-height:1;}
+.flt-verdict-label{font-size:12px;font-weight:600;}
+.flt-tabs{display:flex;border-bottom:1px solid var(--bd);flex-shrink:0;}
+.flt-tab{flex:1;padding:.45rem;border:none;background:none;font-size:12px;font-family:'Noto Sans TC',sans-serif;cursor:pointer;color:var(--t2);border-bottom:2px solid transparent;transition:all .15s;}
+.flt-tab.on{color:var(--red);border-bottom-color:var(--red);font-weight:500;}
+.flt-pane{padding:.75rem 1rem;display:none;}
+.flt-pane.on{display:block;}
+.flt-q{margin-bottom:.65rem;}
+.flt-ql{font-size:11px;font-weight:600;color:var(--t);margin-bottom:4px;}
+@media(max-width:640px){.flt-wrap{bottom:16px;right:12px;}.flt-panel{width:calc(100vw - 24px);}}
 </style>
 </head>
 <body>
@@ -210,84 +231,14 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
     <h1 style="font-size:18px;font-weight:600" id="form-ttl">新增進案</h1>
   </div>
 
-  <!-- 階段一：第一次接觸（固定快速記錄區） -->
-  <div class="s1-block">
-    <div class="s1-hdr">
-      <div class="s1-hdr-l">
-        <div class="s1-badge">1</div>
-        <div>
-          <div class="s1-title">階段一｜第一次接觸</div>
-          <div class="s1-sub">必問四題 · 初步分類 · 完成後回報負責人</div>
-        </div>
-      </div>
-      <div style="font-size:11px;opacity:.7">進入評估前必填</div>
-    </div>
-    <div class="s1-body">
-      <!-- Q1 -->
-      <div class="s1-q">
-        <div class="s1-ql"><div class="s1-qnum">1</div>怎麼找到好奇心的？</div>
-        <div class="sc2g" id="sg-q1src" style="flex-direction:column;gap:4px;">
-          <button class="sc2btn" onclick="pickSC(this,'sg-q1src')">看到某個活動/展覽，主動來</button>
-          <button class="sc2btn" onclick="pickSC(this,'sg-q1src')">朋友推薦，說執行很穩</button>
-          <button class="sc2btn" onclick="pickSC(this,'sg-q1src')">Google 搜尋活動公司</button>
-          <button class="sc2btn" onclick="pickSC(this,'sg-q1src')">舊客戶回頭</button>
-        </div>
-        <div class="s1-hint">偏創意案：主動找到展覽 ／ 偏麵包案：推薦說穩/搜尋 ／ 舊客看第2題再判斷</div>
-      </div>
-      <!-- Q2 -->
-      <div class="s1-q">
-        <div class="s1-ql"><div class="s1-qnum">2</div>喜歡過往哪個專案？為什麼？</div>
-        <textarea class="fta" id="f-q2proj" style="min-height:54px;font-size:12px;" placeholder="記錄客戶原話…"></textarea>
-        <div class="sc2g" id="sg-q2judge" style="gap:4px;margin-top:6px;">
-          <button class="sc2btn" style="font-size:11px;" onclick="pickSC(this,'sg-q2judge')">創意（喜歡概念/互動）</button>
-          <button class="sc2btn" style="font-size:11px;" onclick="pickSC(this,'sg-q2judge')">麵包（執行順/規模大）</button>
-          <button class="sc2btn" style="font-size:11px;color:var(--red);" onclick="pickSC(this,'sg-q2judge')">⚠ 高風險（擔心落地）</button>
-        </div>
-        <div class="s1-hint">高風險：不當場回應，帶回負責人討論</div>
-      </div>
-      <!-- Q3 -->
-      <div class="s1-q">
-        <div class="s1-ql"><div class="s1-qnum">3</div>預算門檻確認 <span style="color:var(--red);font-size:10px;">100萬關鍵</span></div>
-        <div class="sc2g" id="sg-q3budget" style="flex-direction:column;gap:4px;">
-          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this);syncBudgetHint(false)">客戶主動給預算 ≥ 100萬 ✓</button>
-          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this);syncBudgetHint(false)">我方開價，客戶認真考慮 ✓</button>
-          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this);syncBudgetHint(true)" data-warn="1">開價後說別人比較便宜 →麵包/婉拒</button>
-          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this);syncBudgetHint(true)" data-warn="1">預算明確 &lt; 100萬 ✗</button>
-        </div>
-        <div class="s1-warn" id="s1-budget-warn">⚠ 一票否決項目：預算不符合門檻，建議直接婉拒</div>
-      </div>
-      <!-- Q4 -->
-      <div class="s1-q">
-        <div class="s1-ql"><div class="s1-qnum">4</div>窗口是否為主要決策人？</div>
-        <div class="sc2g" id="sg-q4keyman" style="flex-direction:column;gap:4px;">
-          <button class="sc2btn" onclick="pickSC(this,'sg-q4keyman');s1KeymanCheck(this)">我就是負責人，可直接拍板 ✓</button>
-          <button class="sc2btn" onclick="pickSC(this,'sg-q4keyman');s1KeymanCheck(this)">要確認，但主管會進來開會</button>
-          <button class="sc2btn" onclick="pickSC(this,'sg-q4keyman');s1KeymanCheck(this)" data-warn="1">有委員會需報告 ✗ 回報負責人</button>
-        </div>
-        <div class="s1-warn" id="s1-keyman-warn">⚠ 一票否決項目：無法對決策者，建議直接回報負責人</div>
-      </div>
-    </div>
-    <!-- 階段一結論列 -->
-    <div style="padding:.65rem 1.1rem;border-top:1px solid rgba(232,56,74,.2);background:var(--redl);display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-      <div style="font-size:12px;font-weight:600;color:var(--red);flex-shrink:0;">階段一結論</div>
-      <select class="fs" id="f-stage1result" style="flex:1;min-width:160px;max-width:260px;font-size:12px;" onchange="syncStage1Result(this.value)">
-        <option value="">待評估</option>
-        <option value="veto">明顯否決（預算不足/無法對 keyman）</option>
-        <option value="creative">進入創意案正式評估</option>
-        <option value="bread">走麵包案 Package 流程</option>
-      </select>
-      <input class="fi" id="f-stage1note" placeholder="備註…" style="flex:1;min-width:120px;font-size:12px;">
-    </div>
-  </div>
-
   <!-- AI解析 -->
   <div class="fsec">
     <div class="fsh" onclick="togSec(this)">
       <div class="fsi red">🤖</div>
       <div><div class="fst">AI 解析填入</div><div class="fss">把資料給 Claude 解析，貼回 JSON 自動填入所有欄位</div></div>
-      <div class="farr open">▶</div>
+      <div class="farr">▶</div>
     </div>
-    <div class="fsb">
+    <div class="fsb hide">
       <div class="ai-step">
         <div class="ai-step-num">1</div>
         <div class="ai-step-body">
@@ -602,6 +553,103 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
 
 </div>
 
+<!-- ── Floating widget ── -->
+<div class="flt-wrap" id="flt-wrap">
+  <div class="flt-panel" id="flt-panel">
+    <div class="flt-hdr">
+      <div class="flt-hdr-l">⚡ 戰略快速判定</div>
+      <button class="flt-close" onclick="closeFlt()">×</button>
+    </div>
+    <div class="flt-verdict-bar">
+      <div class="flt-verdict-dot" id="flt-verdict-dot">⚪</div>
+      <div class="flt-verdict-label" id="flt-verdict-label" style="color:var(--t2)">待評估</div>
+    </div>
+    <div class="flt-tabs">
+      <button class="flt-tab on" data-ftab="ftab-q" onclick="switchFlt('ftab-q')">必問四題</button>
+      <button class="flt-tab" data-ftab="ftab-okr" onclick="switchFlt('ftab-okr')">OKR 對焦</button>
+    </div>
+    <!-- 必問四題 -->
+    <div class="flt-pane on" id="ftab-q">
+      <div class="flt-q">
+        <div class="flt-ql">1｜怎麼找到好奇心的？</div>
+        <div class="sc2g" id="sg-q1src" style="flex-direction:column;gap:3px;">
+          <button class="sc2btn" onclick="pickSC(this,'sg-q1src');updateFltVerdict()">看到某個活動/展覽，主動來</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q1src');updateFltVerdict()">朋友推薦，說執行很穩</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q1src');updateFltVerdict()">Google 搜尋活動公司</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q1src');updateFltVerdict()">舊客戶回頭</button>
+        </div>
+      </div>
+      <div class="flt-q">
+        <div class="flt-ql">2｜喜歡過往哪個專案？</div>
+        <textarea class="fta" id="f-q2proj" style="min-height:46px;font-size:12px;" placeholder="記錄客戶原話…"></textarea>
+        <div class="sc2g" id="sg-q2judge" style="gap:4px;margin-top:4px;">
+          <button class="sc2btn" style="font-size:11px;" onclick="pickSC(this,'sg-q2judge');updateFltVerdict()">創意（概念/互動）</button>
+          <button class="sc2btn" style="font-size:11px;" onclick="pickSC(this,'sg-q2judge');updateFltVerdict()">麵包（執行穩/規模）</button>
+          <button class="sc2btn" style="font-size:11px;color:var(--red);" onclick="pickSC(this,'sg-q2judge');updateFltVerdict()">⚠ 高風險</button>
+        </div>
+      </div>
+      <div class="flt-q">
+        <div class="flt-ql">3｜預算門檻 <span style="color:var(--red);font-size:10px;">100萬關鍵</span></div>
+        <div class="sc2g" id="sg-q3budget" style="flex-direction:column;gap:3px;">
+          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this);syncBudgetHint(false);updateFltVerdict()">客戶主動給預算 ≥ 100萬 ✓</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this);syncBudgetHint(false);updateFltVerdict()">我方開價，客戶認真考慮 ✓</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this);syncBudgetHint(true);updateFltVerdict()" data-warn="1">開價後說別人比較便宜 →麵包/婉拒</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this);syncBudgetHint(true);updateFltVerdict()" data-warn="1">預算明確 &lt; 100萬 ✗</button>
+        </div>
+        <div class="s1-warn" id="s1-budget-warn">⚠ 一票否決：建議婉拒</div>
+      </div>
+      <div class="flt-q">
+        <div class="flt-ql">4｜窗口是否為 Keyman？</div>
+        <div class="sc2g" id="sg-q4keyman" style="flex-direction:column;gap:3px;">
+          <button class="sc2btn" onclick="pickSC(this,'sg-q4keyman');s1KeymanCheck(this);updateFltVerdict()">我就是負責人，可直接拍板 ✓</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q4keyman');s1KeymanCheck(this);updateFltVerdict()">要確認，但主管會進來開會</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q4keyman');s1KeymanCheck(this);updateFltVerdict()" data-warn="1">有委員會需報告 ✗ 回報負責人</button>
+        </div>
+        <div class="s1-warn" id="s1-keyman-warn">⚠ 一票否決：回報負責人</div>
+      </div>
+      <div style="border-top:1px solid var(--bd);margin-top:6px;padding-top:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;">
+        <div style="font-size:11px;font-weight:600;color:var(--red);flex-shrink:0;">階段一結論</div>
+        <select class="fs" id="f-stage1result" style="flex:1;min-width:120px;font-size:11px;" onchange="syncStage1Result(this.value);updateFltVerdict()">
+          <option value="">待評估</option>
+          <option value="veto">明顯否決</option>
+          <option value="creative">創意案評估</option>
+          <option value="bread">麵包案流程</option>
+        </select>
+      </div>
+      <input class="fi" id="f-stage1note" placeholder="備註…" style="margin-top:5px;font-size:11px;">
+    </div>
+    <!-- OKR 對焦 -->
+    <div class="flt-pane" id="ftab-okr">
+      <div style="font-size:11px;color:var(--t2);margin-bottom:.5rem;">勾選本案符合的 OKR 指標，影響接案優先度</div>
+      <div class="okr-grp">
+        <div class="okr-krlbl">O1 · 改善營收結構</div>
+        <label class="okr-item" onclick="this.classList.toggle('on');generateConclusion();updateFltVerdict()">
+          <input type="checkbox" id="okr-kr1">
+          <div><div class="okr-lbl">KR1｜創意案毛利率 ≥ 35%</div><div class="okr-sub">本案預算達標、有企劃空間</div></div>
+        </label>
+        <label class="okr-item" onclick="this.classList.toggle('on');generateConclusion();updateFltVerdict()">
+          <input type="checkbox" id="okr-kr2">
+          <div><div class="okr-lbl">KR2｜可套用標準麵包 Package</div><div class="okr-sub">客戶看重執行穩定、需求例行</div></div>
+        </label>
+      </div>
+      <div class="okr-grp">
+        <div class="okr-krlbl">O2 · 建立品牌識別度</div>
+        <label class="okr-item" onclick="this.classList.toggle('on');generateConclusion();updateFltVerdict()">
+          <input type="checkbox" id="okr-kr3">
+          <div><div class="okr-lbl">KR1｜品牌定位清楚對外傳遞</div><div class="okr-sub">可做作品集，展現好奇心風格</div></div>
+        </label>
+        <label class="okr-item" onclick="this.classList.toggle('on');generateConclusion();updateFltVerdict()">
+          <input type="checkbox" id="okr-kr4">
+          <div><div class="okr-lbl">KR2｜IP 資源聯動</div><div class="okr-sub">有機會納入 IP 開發流程</div></div>
+        </label>
+      </div>
+    </div>
+  </div>
+  <button class="flt-fab" id="flt-fab" onclick="toggleFlt()" title="戰略快速判定">
+    ⚡<span class="flt-fab-lbl">判定</span>
+  </button>
+</div>
+
 <!-- ── Strategic Assessment Modal ── -->
 <div class="modal-ov" id="strategic-modal">
   <div class="modal">
@@ -660,28 +708,10 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
     <!-- Tab B：OKR 對焦 -->
     <div class="tab-pane" data-tab="tab-b">
       <div id="okr-budget-warn" style="display:none;background:var(--redl);border:1px solid rgba(232,56,74,.3);border-radius:8px;padding:.6rem .85rem;margin-bottom:.85rem;font-size:12px;color:var(--red);font-weight:500;">⚠️ 未達營收硬門檻 — 主表單預算低於 100 萬，依篩選手冊此案不符合 KR1 創意案條件</div>
-      <div style="font-size:12px;color:var(--t2);margin-bottom:.9rem;">勾選本案符合的 OKR 指標，影響接案優先度與案型判定。</div>
-      <div class="okr-grp">
-        <div class="okr-krlbl">O1 · 改善營收結構</div>
-        <label class="okr-item" onclick="this.classList.toggle('on');generateConclusion()">
-          <input type="checkbox" id="okr-kr1">
-          <div><div class="okr-lbl">KR1｜創意案毛利率 ≥ 35%</div><div class="okr-sub">本案預算達標、有企劃空間、客戶願意買單創意</div></div>
-        </label>
-        <label class="okr-item" onclick="this.classList.toggle('on');generateConclusion()">
-          <input type="checkbox" id="okr-kr2">
-          <div><div class="okr-lbl">KR2｜可套用標準麵包 Package</div><div class="okr-sub">客戶看重執行穩定、需求例行、以量制勝</div></div>
-        </label>
-      </div>
-      <div class="okr-grp">
-        <div class="okr-krlbl">O2 · 建立品牌識別度</div>
-        <label class="okr-item" onclick="this.classList.toggle('on');generateConclusion()">
-          <input type="checkbox" id="okr-kr3">
-          <div><div class="okr-lbl">KR1｜品牌定位清楚對外傳遞</div><div class="okr-sub">本案可做為作品集案例，清楚展現好奇心風格</div></div>
-        </label>
-        <label class="okr-item" onclick="this.classList.toggle('on');generateConclusion()">
-          <input type="checkbox" id="okr-kr4">
-          <div><div class="okr-lbl">KR2｜IP 資源聯動</div><div class="okr-sub">本案有機會納入 IP 開發流程或作為 IP 應用場景</div></div>
-        </label>
+      <div style="font-size:12px;color:var(--t2);margin-bottom:.85rem;">OKR 對焦已整合至右下角「⚡ 戰略判定」懸浮視窗。目前勾選狀態：</div>
+      <div id="modal-okr-summary"></div>
+      <div style="margin-top:.9rem;">
+        <button class="btn bp" style="font-size:12px;" onclick="closeModal();openFlt();switchFlt('ftab-okr')">⚡ 前往 OKR 對焦視窗</button>
       </div>
     </div>
 
@@ -1095,6 +1125,7 @@ function setForm(p) {
   const co = g('copy-ok'); if (co) co.style.display = 'none';
   const bh = g('brand-hint'); if (bh) bh.textContent = '';
   const pj = g('paste-json'); if (pj) pj.value = '';
+  updateFltVerdict();
 }
 
 // ── Form clear ──
@@ -1103,12 +1134,16 @@ function clearForm() {
   document.querySelectorAll('.fs').forEach(el => el.selectedIndex = 0);
   document.querySelectorAll('.chip').forEach(el => el.classList.remove('on'));
   document.querySelectorAll('.sc2btn').forEach(el => el.classList.remove('on'));
+  ['okr-kr1','okr-kr2','okr-kr3','okr-kr4'].forEach(id => {
+    const el = g(id); if (el) { el.checked = false; el.closest('.okr-item')?.classList.remove('on'); }
+  });
   setDM('single'); _lb = '';
   const ok = g('apply-ok'); if (ok) ok.style.display = 'none';
   const co = g('copy-ok'); if (co) co.style.display = 'none';
   const bh = g('brand-hint'); if (bh) bh.textContent = '';
   const pj = g('paste-json'); if (pj) pj.value = '';
   const bb = g('brand-box'); if (bb) bb.style.display = 'none';
+  updateFltVerdict();
 }
 
 // ── Save / Edit / Delete ──
@@ -1177,11 +1212,11 @@ const SL_SEM = {
 function showModal() {
   const p = getForm();
   if (!p.co) { toast('⚠️ 請填寫客戶公司名稱'); return; }
-  // Budget warning in Tab B
   const budgetLow = ['20–49萬','50–99萬'].includes(p.budget) || g('budget-sync-hint')?.style.display === 'inline';
   const warn = g('okr-budget-warn');
   if (warn) warn.style.display = budgetLow ? 'block' : 'none';
   generateConclusion();
+  updateModalOKRSummary();
   g('strategic-modal').classList.add('open');
   switchTab('tab-a');
 }
@@ -1192,6 +1227,7 @@ function switchTab(tab) {
   document.querySelectorAll('#strategic-modal .tab-btn').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
   document.querySelectorAll('#strategic-modal .tab-pane').forEach(p => p.classList.toggle('on', p.dataset.tab === tab));
   if (tab === 'tab-c') generateConclusion();
+  if (tab === 'tab-b') updateModalOKRSummary();
 }
 function updateSlider(id, valId) {
   const v = parseInt(g(id).value);
@@ -1420,6 +1456,54 @@ function toast(msg) {
   const el = g('toast');
   el.textContent = msg; el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+// ── Floating widget ──
+function openFlt() { g('flt-panel').classList.add('open'); }
+function closeFlt() { g('flt-panel').classList.remove('open'); }
+function toggleFlt() { g('flt-panel').classList.toggle('open'); }
+function switchFlt(tab) {
+  document.querySelectorAll('.flt-tab').forEach(b => b.classList.toggle('on', b.dataset.ftab === tab));
+  document.querySelectorAll('.flt-pane').forEach(p => p.classList.toggle('on', p.id === tab));
+}
+function updateFltVerdict() {
+  const q3 = getSC('sg-q3budget');
+  const q4 = getSC('sg-q4keyman');
+  const budgetFail = q3.includes('< 100') || q3.includes('比較便宜') || q3.includes('比較');
+  const keymanFail = q4.includes('委員會');
+  const kr1 = g('okr-kr1')?.checked;
+  const kr2 = g('okr-kr2')?.checked;
+  const stage1 = g('f-stage1result')?.value;
+  const dot = g('flt-verdict-dot');
+  const lbl = g('flt-verdict-label');
+  if (!dot || !lbl) return;
+  if (stage1 === 'veto' || budgetFail || keymanFail) {
+    dot.textContent = '🔴'; lbl.textContent = '建議婉拒'; lbl.style.color = 'var(--red)';
+  } else if (kr1) {
+    dot.textContent = '🟢'; lbl.textContent = '核心創意案'; lbl.style.color = 'var(--grn)';
+  } else if (kr2 || stage1 === 'bread') {
+    dot.textContent = '🟡'; lbl.textContent = '標準麵包案'; lbl.style.color = 'var(--amb)';
+  } else if (stage1 === 'creative') {
+    dot.textContent = '🔵'; lbl.textContent = '創意案評估中'; lbl.style.color = 'var(--bl)';
+  } else {
+    dot.textContent = '⚪'; lbl.textContent = '待評估'; lbl.style.color = 'var(--t2)';
+  }
+}
+function updateModalOKRSummary() {
+  const el = g('modal-okr-summary'); if (!el) return;
+  const items = [
+    { id:'okr-kr1', label:'KR1｜創意案毛利率 ≥ 35%', group:'O1' },
+    { id:'okr-kr2', label:'KR2｜可套用標準麵包 Package', group:'O1' },
+    { id:'okr-kr3', label:'KR1｜品牌定位清楚對外傳遞', group:'O2' },
+    { id:'okr-kr4', label:'KR2｜IP 資源聯動', group:'O2' }
+  ];
+  el.innerHTML = items.map(it => {
+    const checked = g(it.id)?.checked;
+    return `<div style="display:flex;align-items:center;gap:8px;padding:.35rem .6rem;border:1px solid ${checked?'var(--red)':'var(--bd)'};border-radius:7px;margin-bottom:5px;background:${checked?'var(--redl)':''}">
+      <span style="font-size:13px">${checked?'✅':'⬜'}</span>
+      <span style="font-size:12px;${checked?'color:var(--red);font-weight:500':''}">${it.label}</span>
+    </div>`;
+  }).join('');
 }
 
 // ── Init ──
