@@ -108,6 +108,57 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--t);f
 .toast{position:fixed;bottom:20px;right:20px;background:var(--t);color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;z-index:9999;transform:translateY(70px);opacity:0;transition:all .22s;pointer-events:none;}
 .toast.show{transform:translateY(0);opacity:1;}
 @media(max-width:640px){.wrap{padding:1rem;}.stats{grid-template-columns:1fr 1fr;}.fr.c2,.fr.c3{grid-template-columns:1fr;}}
+
+/* ── Stage 1 quick block ── */
+.s1-block{border:1.5px solid var(--red);border-radius:12px;margin-bottom:.85rem;overflow:hidden;}
+.s1-hdr{padding:.75rem 1.1rem;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:space-between;}
+.s1-hdr-l{display:flex;align-items:center;gap:9px;}
+.s1-badge{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.25);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.s1-title{font-size:13px;font-weight:600;}
+.s1-sub{font-size:11px;opacity:.75;}
+.s1-body{padding:1rem 1.1rem;background:var(--sf);display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.s1-q{background:var(--s2);border:1px solid var(--bd);border-radius:9px;padding:.75rem .9rem;}
+.s1-ql{font-size:11px;font-weight:600;color:var(--t);margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+.s1-qnum{width:16px;height:16px;border-radius:50%;background:var(--red);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.s1-hint{font-size:10px;color:var(--t3);margin-top:5px;line-height:1.5;}
+.s1-warn{font-size:10px;color:var(--red);font-weight:600;margin-top:4px;display:none;}
+@media(max-width:640px){.s1-body{grid-template-columns:1fr;}}
+
+/* ── Modal ── */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:800;display:none;align-items:center;justify-content:center;padding:1rem;}
+.modal-ov.open{display:flex;}
+.modal{background:var(--sf);border-radius:14px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;box-shadow:0 12px 48px rgba(0,0,0,.22);}
+.modal-hdr{padding:1rem 1.25rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--sf);z-index:1;}
+.modal-hdr h2{font-size:15px;font-weight:600;}
+.modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--t3);line-height:1;padding:2px 6px;border-radius:6px;transition:all .15s;}.modal-close:hover{background:var(--s2);color:var(--t);}
+.modal-tabs{display:flex;border-bottom:1px solid var(--bd);padding:0 1.25rem;background:var(--sf);}
+.tab-btn{padding:.6rem .9rem;border:none;background:none;cursor:pointer;font-size:12px;font-family:'Noto Sans TC',sans-serif;color:var(--t2);border-bottom:2px solid transparent;transition:all .15s;margin-bottom:-1px;white-space:nowrap;}
+.tab-btn.on{color:var(--red);border-bottom-color:var(--red);font-weight:500;}
+.tab-pane{display:none;padding:1.1rem 1.25rem;}.tab-pane.on{display:block;}
+.sl-grp{margin-bottom:1rem;}
+.sl-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
+.sl-lbl{font-size:12px;color:var(--t2);}
+.sl-val{font-size:13px;font-weight:600;color:var(--red);min-width:20px;text-align:right;}
+input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;margin:0;}
+.sl-scale{display:flex;justify-content:space-between;font-size:10px;color:var(--t3);margin-top:2px;}
+.okr-grp{margin-bottom:.6rem;}
+.okr-krlbl{font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.5px;margin-bottom:4px;}
+.okr-item{display:flex;align-items:flex-start;gap:9px;padding:.6rem .75rem;border:1px solid var(--bd);border-radius:8px;margin-bottom:5px;cursor:pointer;transition:border-color .15s;}
+.okr-item:hover{border-color:var(--bd2);}
+.okr-item.on{border-color:var(--red);background:var(--redl);}
+.okr-item input[type=checkbox]{flex-shrink:0;margin-top:1px;accent-color:var(--red);cursor:pointer;}
+.okr-lbl{font-size:12px;font-weight:500;line-height:1.4;}
+.okr-sub{font-size:11px;color:var(--t2);margin-top:2px;line-height:1.4;}
+.verdict-box{border-radius:10px;padding:.9rem 1.1rem;border:1px solid var(--bd);margin-top:.75rem;}
+.verdict-type{font-size:14px;font-weight:600;margin-bottom:5px;}
+.verdict-txt{font-size:12px;color:var(--t2);line-height:1.7;}
+.vt-creative{background:#e7f0ea;border-color:#b8d9c3;}.vt-creative .verdict-type{color:var(--grn);}
+.vt-potential{background:var(--blg);border-color:#c0d8ee;}.vt-potential .verdict-type{color:var(--bl);}
+.vt-bread{background:var(--ambg);border-color:#f0d9a0;}.vt-bread .verdict-type{color:var(--amb);}
+.vt-reject{background:var(--redl);border-color:rgba(232,56,74,.3);}.vt-reject .verdict-type{color:var(--red);}
+.modal-footer{padding:.9rem 1.25rem;border-top:1px solid var(--bd);display:flex;justify-content:flex-end;gap:8px;background:var(--sf);}
+.score-total{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2);margin-bottom:.75rem;padding:.6rem .75rem;background:var(--s2);border-radius:7px;}
+.score-num{font-size:16px;font-weight:700;color:var(--red);}
 </style>
 </head>
 <body>
@@ -155,6 +206,76 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--t);f
   <div class="fhdr">
     <button class="btn bs" onclick="showList()">← 返回</button>
     <h1 style="font-size:18px;font-weight:600" id="form-ttl">新增進案</h1>
+  </div>
+
+  <!-- 階段一：第一次接觸（固定快速記錄區） -->
+  <div class="s1-block">
+    <div class="s1-hdr">
+      <div class="s1-hdr-l">
+        <div class="s1-badge">1</div>
+        <div>
+          <div class="s1-title">階段一｜第一次接觸</div>
+          <div class="s1-sub">必問四題 · 初步分類 · 完成後回報負責人</div>
+        </div>
+      </div>
+      <div style="font-size:11px;opacity:.7">進入評估前必填</div>
+    </div>
+    <div class="s1-body">
+      <!-- Q1 -->
+      <div class="s1-q">
+        <div class="s1-ql"><div class="s1-qnum">1</div>怎麼找到好奇心的？</div>
+        <div class="sc2g" id="sg-q1src" style="flex-direction:column;gap:4px;">
+          <button class="sc2btn" onclick="pickSC(this,'sg-q1src')">看到某個活動/展覽，主動來</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q1src')">朋友推薦，說執行很穩</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q1src')">Google 搜尋活動公司</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q1src')">舊客戶回頭</button>
+        </div>
+        <div class="s1-hint">偏創意案：主動找到展覽 ／ 偏麵包案：推薦說穩/搜尋 ／ 舊客看第2題再判斷</div>
+      </div>
+      <!-- Q2 -->
+      <div class="s1-q">
+        <div class="s1-ql"><div class="s1-qnum">2</div>喜歡過往哪個專案？為什麼？</div>
+        <textarea class="fta" id="f-q2proj" style="min-height:54px;font-size:12px;" placeholder="記錄客戶原話…"></textarea>
+        <div class="sc2g" id="sg-q2judge" style="gap:4px;margin-top:6px;">
+          <button class="sc2btn" style="font-size:11px;" onclick="pickSC(this,'sg-q2judge')">創意（喜歡概念/互動）</button>
+          <button class="sc2btn" style="font-size:11px;" onclick="pickSC(this,'sg-q2judge')">麵包（執行順/規模大）</button>
+          <button class="sc2btn" style="font-size:11px;color:var(--red);" onclick="pickSC(this,'sg-q2judge')">⚠ 高風險（擔心落地）</button>
+        </div>
+        <div class="s1-hint">高風險：不當場回應，帶回負責人討論</div>
+      </div>
+      <!-- Q3 -->
+      <div class="s1-q">
+        <div class="s1-ql"><div class="s1-qnum">3</div>預算門檻確認 <span style="color:var(--red);font-size:10px;">100萬關鍵</span></div>
+        <div class="sc2g" id="sg-q3budget" style="flex-direction:column;gap:4px;">
+          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this)">客戶主動給預算 ≥ 100萬 ✓</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this)">我方開價，客戶認真考慮 ✓</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this)" data-warn="1">開價後說別人比較便宜 →麵包/婉拒</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this)" data-warn="1">預算明確 &lt; 100萬 ✗</button>
+        </div>
+        <div class="s1-warn" id="s1-budget-warn">⚠ 一票否決項目：預算不符合門檻，建議直接婉拒</div>
+      </div>
+      <!-- Q4 -->
+      <div class="s1-q">
+        <div class="s1-ql"><div class="s1-qnum">4</div>窗口是否為主要決策人？</div>
+        <div class="sc2g" id="sg-q4keyman" style="flex-direction:column;gap:4px;">
+          <button class="sc2btn" onclick="pickSC(this,'sg-q4keyman');s1KeymanCheck(this)">我就是負責人，可直接拍板 ✓</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q4keyman');s1KeymanCheck(this)">要確認，但主管會進來開會</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q4keyman');s1KeymanCheck(this)" data-warn="1">有委員會需報告 ✗ 回報負責人</button>
+        </div>
+        <div class="s1-warn" id="s1-keyman-warn">⚠ 一票否決項目：無法對決策者，建議直接回報負責人</div>
+      </div>
+    </div>
+    <!-- 階段一結論列 -->
+    <div style="padding:.65rem 1.1rem;border-top:1px solid rgba(232,56,74,.2);background:var(--redl);display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <div style="font-size:12px;font-weight:600;color:var(--red);flex-shrink:0;">階段一結論</div>
+      <select class="fs" id="f-stage1result" style="flex:1;min-width:160px;max-width:260px;font-size:12px;">
+        <option value="">待評估</option>
+        <option value="veto">明顯否決（預算不足/無法對 keyman）</option>
+        <option value="creative">進入創意案正式評估</option>
+        <option value="bread">走麵包案 Package 流程</option>
+      </select>
+      <input class="fi" id="f-stage1note" placeholder="備註…" style="flex:1;min-width:120px;font-size:12px;">
+    </div>
   </div>
 
   <!-- AI解析 -->
@@ -213,8 +334,13 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--t);f
         <div class="fg"><label class="fl">負責 ST</label><input class="fi" id="f-owner" placeholder="小葉"></div>
         <div class="fg"><label class="fl">進案狀態</label>
           <select class="fs" id="f-status">
-            <option value="new">新進案（待評估）</option><option value="review">評估中</option>
-            <option value="pitch">確認提案</option><option value="win">得案</option><option value="lose">未得案</option>
+            <option value="new">新進案（待評估）</option>
+            <option value="creative">創意案</option>
+            <option value="bread">麵包案</option>
+            <option value="veto">已否決</option>
+            <option value="pitch">確認提案</option>
+            <option value="win">得案</option>
+            <option value="lose">未得案</option>
           </select>
         </div>
         <div class="fg"><label class="fl">來源</label>
@@ -352,6 +478,11 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--t);f
         <div class="fg"><label class="fl">期待渠道</label><textarea class="fta" id="f-channel" style="min-height:70px"></textarea></div>
       </div>
       <div class="fr"><div class="fg"><label class="fl">可提供的資源</label><input class="fi" id="f-resource"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">核心問題（客戶真正想解決的是什麼）</label><textarea class="fta" id="f-core-problem" style="min-height:60px" placeholder="AI 解析後自動帶入，或手動填寫…"></textarea></div></div>
+      <div class="fr c2">
+        <div class="fg"><label class="fl">資訊缺口（還缺哪些關鍵資訊）</label><textarea class="fta" id="f-info-gaps" style="min-height:70px" placeholder="條列待確認事項…"></textarea></div>
+        <div class="fg"><label class="fl">下一步建議（團隊下一步行動）</label><textarea class="fta" id="f-next-steps" style="min-height:70px" placeholder="條列具體行動…"></textarea></div>
+      </div>
     </div>
   </div>
 
@@ -444,7 +575,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--t);f
 
   <div class="facts">
     <button class="btn bs" onclick="clearForm()">清除</button>
-    <button class="btn bp" onclick="saveProj()">💾 儲存進案</button>
+    <button class="btn bp" onclick="showModal()">💾 評估並儲存</button>
   </div>
 </div>
 </div>
@@ -468,6 +599,104 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--t);f
 </div>
 
 </div>
+
+<!-- ── Strategic Assessment Modal ── -->
+<div class="modal-ov" id="strategic-modal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <h2>🎯 戰略評估｜儲存前確認</h2>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-tabs">
+      <button class="tab-btn on" data-tab="tab-a" onclick="switchTab('tab-a')">Tab A｜五指標評分</button>
+      <button class="tab-btn" data-tab="tab-b" onclick="switchTab('tab-b')">Tab B｜OKR 對焦</button>
+      <button class="tab-btn" data-tab="tab-c" onclick="switchTab('tab-c')">判定結果</button>
+    </div>
+
+    <!-- Tab A：五指標評分 -->
+    <div class="tab-pane on" data-tab="tab-a">
+      <div style="font-size:12px;color:var(--t2);margin-bottom:1rem;">依手冊 3.3 對五個維度評分（1 = 很差，5 = 很好），評分結果影響案型判定。</div>
+      <div class="score-total">
+        <span>目前總分</span>
+        <span class="score-num" id="score-total-disp">15</span>
+        <span style="color:var(--t3);">/ 25</span>
+        <span style="flex:1"></span>
+        <span style="font-size:11px;color:var(--t3);">≥20 核心創意案 ｜ 14–19 潛力創意案 ｜ &lt;14 考慮麵包案</span>
+      </div>
+      <div class="sl-grp">
+        <div class="sl-row"><span class="sl-lbl">企劃空間（客戶願意接受創意建議）</span><span class="sl-val" id="sl-space-v">3</span></div>
+        <input type="range" id="sl-space" min="1" max="5" value="3" oninput="updateSlider('sl-space','sl-space-v')">
+        <div class="sl-scale"><span>很低</span><span>普通</span><span>很高</span></div>
+      </div>
+      <div class="sl-grp">
+        <div class="sl-row"><span class="sl-lbl">溝通品質（需求具體、主動給預算、修改有邏輯）</span><span class="sl-val" id="sl-comm-v">3</span></div>
+        <input type="range" id="sl-comm" min="1" max="5" value="3" oninput="updateSlider('sl-comm','sl-comm-v')">
+        <div class="sl-scale"><span>很差</span><span>普通</span><span>很好</span></div>
+      </div>
+      <div class="sl-grp">
+        <div class="sl-row"><span class="sl-lbl">執行熟悉度（同類型案，毛利曾 ≥ 35%）</span><span class="sl-val" id="sl-famil-v">3</span></div>
+        <input type="range" id="sl-famil" min="1" max="5" value="3" oninput="updateSlider('sl-famil','sl-famil-v')">
+        <div class="sl-scale"><span>全新領域</span><span>有過</span><span>非常熟</span></div>
+      </div>
+      <div class="sl-grp">
+        <div class="sl-row"><span class="sl-lbl">時間充裕度（旺季 3 週 / 淡季 2 週準備）</span><span class="sl-val" id="sl-time-v">3</span></div>
+        <input type="range" id="sl-time" min="1" max="5" value="3" oninput="updateSlider('sl-time','sl-time-v')">
+        <div class="sl-scale"><span>非常趕</span><span>勉強</span><span>非常充裕</span></div>
+      </div>
+      <div class="sl-grp">
+        <div class="sl-row"><span class="sl-lbl">資源穩定度（預算、人力、資訊都明確）</span><span class="sl-val" id="sl-resource-v">3</span></div>
+        <input type="range" id="sl-resource" min="1" max="5" value="3" oninput="updateSlider('sl-resource','sl-resource-v')">
+        <div class="sl-scale"><span>很不明確</span><span>普通</span><span>非常穩定</span></div>
+      </div>
+    </div>
+
+    <!-- Tab B：OKR 對焦 -->
+    <div class="tab-pane" data-tab="tab-b">
+      <div style="font-size:12px;color:var(--t2);margin-bottom:.9rem;">勾選本案符合的 OKR 指標，影響接案優先度與案型判定。</div>
+      <div class="okr-grp">
+        <div class="okr-krlbl">O1 · 改善營收結構</div>
+        <label class="okr-item" onclick="this.classList.toggle('on');generateConclusion()">
+          <input type="checkbox" id="okr-kr1">
+          <div><div class="okr-lbl">KR1｜創意案毛利率 ≥ 35%</div><div class="okr-sub">本案預算達標、有企劃空間、客戶願意買單創意</div></div>
+        </label>
+        <label class="okr-item" onclick="this.classList.toggle('on');generateConclusion()">
+          <input type="checkbox" id="okr-kr2">
+          <div><div class="okr-lbl">KR2｜可套用標準麵包 Package</div><div class="okr-sub">客戶看重執行穩定、需求例行、以量制勝</div></div>
+        </label>
+      </div>
+      <div class="okr-grp">
+        <div class="okr-krlbl">O2 · 建立品牌識別度</div>
+        <label class="okr-item" onclick="this.classList.toggle('on');generateConclusion()">
+          <input type="checkbox" id="okr-kr3">
+          <div><div class="okr-lbl">KR1｜品牌定位清楚對外傳遞</div><div class="okr-sub">本案可做為作品集案例，清楚展現好奇心風格</div></div>
+        </label>
+        <label class="okr-item" onclick="this.classList.toggle('on');generateConclusion()">
+          <input type="checkbox" id="okr-kr4">
+          <div><div class="okr-lbl">KR2｜IP 資源聯動</div><div class="okr-sub">本案有機會納入 IP 開發流程或作為 IP 應用場景</div></div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Tab C：判定結果 -->
+    <div class="tab-pane" data-tab="tab-c">
+      <div style="font-size:12px;color:var(--t2);margin-bottom:.75rem;">根據五指標評分、OKR 對焦與階段一記錄自動判定。</div>
+      <div id="verdict-box" class="verdict-box">
+        <div class="verdict-type" style="color:var(--t3);">請先完成 Tab A 和 Tab B</div>
+        <div class="verdict-txt">完成評分後系統自動產生判定結果。</div>
+      </div>
+      <!-- Hidden fields for storing verdict data -->
+      <input type="hidden" id="f-verdict">
+      <input type="hidden" id="f-verdict-txt">
+      <input type="hidden" id="f-total-score">
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn bs" onclick="closeModal()">取消</button>
+      <button class="btn bp" onclick="finalSave()">✅ 確認並儲存</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 <script>
 // ── State ──
@@ -614,10 +843,19 @@ function setDMVal(v) {
   }
 }
 
-// ── Fill helper with green flash ──
+// ── Fill helpers ──
 function fill(id, v) {
   if (v === undefined || v === null || v === '') return;
   const el = g(id); if (!el) return;
+  el.value = v;
+  el.classList.add('filled');
+  setTimeout(() => el.classList.remove('filled'), 3000);
+}
+function fillSafe(id, v) {
+  // Only fills if the field is currently empty — preserves manual input
+  if (v === undefined || v === null || v === '') return;
+  const el = g(id); if (!el) return;
+  if (el.value.trim()) return;
   el.value = v;
   el.classList.add('filled');
   setTimeout(() => el.classList.remove('filled'), 3000);
@@ -633,10 +871,14 @@ const PARSE_PROMPT = `請解析以下進案資料，只回傳一個 JSON 物件�
 "pitch":"是否比稿(是/否)","pitch_who":"比稿對手",
 "type":["Branding/Event/Exhibition/Pop-Up Store/Campaign/Production/其他"],
 "who":"活動人數TA","what":"活動類型完整描述","when":"時間","where":"地點","things":"禮贈品",
-"budget":"20–49萬/50–99萬/100–150萬/150萬以上/待討論","budget_n":"預算備註","req":"需求說明2-4句",
+"budget":"20–49萬/50–99萬/100–150萬/150萬以上/待討論","budget_n":"預算備註",
+"req":"【需求摘要】客戶現在想做什麼（2-3句）",
+"core_problem":"【核心問題】客戶真正想解決的問題是什麼（1-2句）",
 "musthave":"Must Have條列","key":"專案關鍵痛點與戰略意義",
 "goals":["品牌曝光/導流轉換/新品上市/口碑建立/銷售業績/會員招募/媒體聲量"],
 "kpi":"關鍵目標具體說明","must":"企劃一定要包含","why":"需求背景","ta":"目標受眾","channel":"渠道","resource":"可提供資源",
+"info_gaps":"【資訊缺口】目前還缺哪些關鍵資訊，條列式",
+"next_steps":"【下一步建議】團隊下一步該確認什麼（條列式）",
 "report_date":"YYYY-MM-DD","pitch_date":"YYYY-MM-DD","keyman":"提案對象",
 "deliverable":["預算規劃/企劃內容/禮贈品建議/視覺提案/報價單"],"pitch_n":"提案備註",
 "obs":"觀察含溝通風格決策模式潛在風險","debrief":"Debrief含痛點本質問題與好奇心切入機會"}
@@ -660,28 +902,34 @@ function applyJSON() {
   if (!raw) { toast('⚠️ 請先貼上 JSON'); return; }
   try {
     const p = JSON.parse(raw);
-    fill('f-proj',p.proj); fill('f-co',p.co); fill('f-brand',p.brand);
-    fill('f-cname',p.cname); fill('f-ctitle',p.ctitle); fill('f-ccontact',p.ccontact);
-    fill('f-industry',p.industry); fill('f-url',p.url);
-    fill('f-brand-intro',p.brand_intro); fill('f-brand-status',p.brand_status);
-    fill('f-motive',p.motive); fsel('f-pitch',p.pitch); fill('f-pitch-who',p.pitch_who);
-    if (p.type?.length) setChips('c-type', p.type);
-    fill('f-who',p.who); fill('f-what',p.what); fill('f-when',p.when);
-    fill('f-where',p.where); fill('f-things',p.things);
-    fsel('f-budget',p.budget); fill('f-budget-n',p.budget_n); fill('f-req',p.req);
-    fill('f-musthave',p.musthave); fill('f-key',p.key);
-    if (p.goals?.length) setChips('c-goals', p.goals);
-    fill('f-kpi',p.kpi); fill('f-must',p.must); fill('f-why',p.why);
-    fill('f-ta',p.ta); fill('f-channel',p.channel); fill('f-resource',p.resource);
-    if (p.report_date) setDMVal(p.report_date);
-    if (p.pitch_date) g('f-pitch-date').value = p.pitch_date;
-    fill('f-keyman',p.keyman);
-    if (p.deliverable?.length) setChips('c-deliverable', p.deliverable);
-    fill('f-pitch-n',p.pitch_n); fill('f-obs',p.obs); fill('f-debrief',p.debrief);
+    // Use fillSafe — will NOT overwrite fields the user already filled manually
+    fillSafe('f-proj',p.proj); fillSafe('f-co',p.co); fillSafe('f-brand',p.brand);
+    fillSafe('f-cname',p.cname); fillSafe('f-ctitle',p.ctitle); fillSafe('f-ccontact',p.ccontact);
+    fillSafe('f-industry',p.industry); fillSafe('f-url',p.url);
+    fillSafe('f-brand-intro',p.brand_intro); fillSafe('f-brand-status',p.brand_status);
+    fillSafe('f-motive',p.motive);
+    if (!g('f-pitch').value) fsel('f-pitch',p.pitch);
+    fillSafe('f-pitch-who',p.pitch_who);
+    if (p.type?.length && !getChips('c-type').length) setChips('c-type', p.type);
+    fillSafe('f-who',p.who); fillSafe('f-what',p.what); fillSafe('f-when',p.when);
+    fillSafe('f-where',p.where); fillSafe('f-things',p.things);
+    if (!g('f-budget').value) fsel('f-budget',p.budget);
+    fillSafe('f-budget-n',p.budget_n); fillSafe('f-req',p.req);
+    fillSafe('f-core-problem',p.core_problem);
+    fillSafe('f-musthave',p.musthave); fillSafe('f-key',p.key);
+    if (p.goals?.length && !getChips('c-goals').length) setChips('c-goals', p.goals);
+    fillSafe('f-kpi',p.kpi); fillSafe('f-must',p.must); fillSafe('f-why',p.why);
+    fillSafe('f-ta',p.ta); fillSafe('f-channel',p.channel); fillSafe('f-resource',p.resource);
+    fillSafe('f-info-gaps',p.info_gaps); fillSafe('f-next-steps',p.next_steps);
+    if (p.report_date && !g('f-report-date').value) setDMVal(p.report_date);
+    if (p.pitch_date && !g('f-pitch-date').value) g('f-pitch-date').value = p.pitch_date;
+    fillSafe('f-keyman',p.keyman);
+    if (p.deliverable?.length && !getChips('c-deliverable').length) setChips('c-deliverable', p.deliverable);
+    fillSafe('f-pitch-n',p.pitch_n); fillSafe('f-obs',p.obs); fillSafe('f-debrief',p.debrief);
     const ok = g('apply-ok');
     ok.style.display = 'block';
-    ok.textContent = '✅ 套用完成 — ' + [p.co&&'公司：'+p.co, p.cname&&'窗口：'+p.cname, p.what&&'活動：'+p.what, p.budget&&'預算：'+p.budget].filter(Boolean).join('  ·  ');
-    toast('✅ 套用完成！綠色欄位為 AI 填入');
+    ok.textContent = '✅ 套用完成（已填欄位保留）— ' + [p.co&&'公司：'+p.co, p.cname&&'窗口：'+p.cname, p.what&&'活動：'+p.what, p.budget&&'預算：'+p.budget].filter(Boolean).join('  ·  ');
+    toast('✅ 套用完成！綠色為 AI 填入，手動輸入的欄位已保留');
   } catch(e) { toast('⚠️ JSON 格式錯誤：' + e.message.slice(0,50)); }
 }
 
@@ -745,7 +993,29 @@ function getForm() {
     keyman: g('f-keyman').value.trim(), deliverable: getChips('c-deliverable'), pitchN: g('f-pitch-n').value.trim(),
     contactScore: getSC('sg-contact'), criteria: getChips('c-criteria'),
     obs: g('f-obs').value.trim(), debrief: g('f-debrief').value.trim(),
-    feas: g('f-feas').value, discuss: g('f-discuss').value, intN: g('f-int-n').value.trim()
+    feas: g('f-feas').value, discuss: g('f-discuss').value, intN: g('f-int-n').value.trim(),
+    // Stage 1 fields
+    q1src: getSC('sg-q1src'), q2proj: g('f-q2proj')?.value.trim(),
+    q2judge: getSC('sg-q2judge'), q3budget: getSC('sg-q3budget'),
+    q4keyman: getSC('sg-q4keyman'), stage1result: g('f-stage1result')?.value,
+    stage1note: g('f-stage1note')?.value.trim(),
+    // Brief analysis fields
+    coreProblem: g('f-core-problem')?.value.trim(),
+    infoGaps: g('f-info-gaps')?.value.trim(),
+    nextSteps: g('f-next-steps')?.value.trim(),
+    // Assessment fields (from modal)
+    slSpace: parseInt(g('sl-space')?.value || 3),
+    slComm: parseInt(g('sl-comm')?.value || 3),
+    slFamil: parseInt(g('sl-famil')?.value || 3),
+    slTime: parseInt(g('sl-time')?.value || 3),
+    slResource: parseInt(g('sl-resource')?.value || 3),
+    totalScore: parseInt(g('f-total-score')?.value || 0),
+    okrKr1: g('okr-kr1')?.checked || false,
+    okrKr2: g('okr-kr2')?.checked || false,
+    okrKr3: g('okr-kr3')?.checked || false,
+    okrKr4: g('okr-kr4')?.checked || false,
+    verdict: g('f-verdict')?.value || '',
+    verdictTxt: g('f-verdict-txt')?.value || ''
   };
 }
 
@@ -771,6 +1041,29 @@ function setForm(p) {
   setSC('sg-contact', p.contactScore || ''); setChips('c-criteria', p.criteria);
   sv('f-obs',p.obs); sv('f-debrief',p.debrief);
   g('f-feas').value = p.feas || ''; g('f-discuss').value = p.discuss || ''; sv('f-int-n',p.intN);
+  // Stage 1
+  setSC('sg-q1src', p.q1src || ''); sv('f-q2proj', p.q2proj);
+  setSC('sg-q2judge', p.q2judge || ''); setSC('sg-q3budget', p.q3budget || '');
+  setSC('sg-q4keyman', p.q4keyman || '');
+  if (g('f-stage1result')) g('f-stage1result').value = p.stage1result || '';
+  sv('f-stage1note', p.stage1note);
+  // Brief analysis
+  sv('f-core-problem', p.coreProblem); sv('f-info-gaps', p.infoGaps); sv('f-next-steps', p.nextSteps);
+  // Assessment (restore sliders)
+  if (g('sl-space')) { g('sl-space').value = p.slSpace || 3; g('sl-space-v').textContent = p.slSpace || 3; }
+  if (g('sl-comm'))  { g('sl-comm').value  = p.slComm  || 3; g('sl-comm-v').textContent  = p.slComm  || 3; }
+  if (g('sl-famil')) { g('sl-famil').value = p.slFamil || 3; g('sl-famil-v').textContent = p.slFamil || 3; }
+  if (g('sl-time'))  { g('sl-time').value  = p.slTime  || 3; g('sl-time-v').textContent  = p.slTime  || 3; }
+  if (g('sl-resource')) { g('sl-resource').value = p.slResource || 3; g('sl-resource-v').textContent = p.slResource || 3; }
+  if (g('score-total-disp')) g('score-total-disp').textContent = p.totalScore || 15;
+  if (g('okr-kr1')) g('okr-kr1').checked = !!p.okrKr1;
+  if (g('okr-kr2')) g('okr-kr2').checked = !!p.okrKr2;
+  if (g('okr-kr3')) g('okr-kr3').checked = !!p.okrKr3;
+  if (g('okr-kr4')) g('okr-kr4').checked = !!p.okrKr4;
+  // Sync OKR item visual state
+  ['okr-kr1','okr-kr2','okr-kr3','okr-kr4'].forEach(id => {
+    const el = g(id); if (el) el.closest('.okr-item')?.classList.toggle('on', el.checked);
+  });
   g('brand-box').style.display = 'none';
   const ok = g('apply-ok'); if (ok) ok.style.display = 'none';
   const co = g('copy-ok'); if (co) co.style.display = 'none';
@@ -828,14 +1121,100 @@ async function delProj() {
   renderList(); toast('已刪除'); showList();
 }
 
+// ── Stage 1 warning helpers ──
+function s1BudgetCheck(btn) {
+  const warn = g('s1-budget-warn');
+  warn.style.display = btn.dataset.warn ? 'block' : 'none';
+}
+function s1KeymanCheck(btn) {
+  const warn = g('s1-keyman-warn');
+  warn.style.display = btn.dataset.warn ? 'block' : 'none';
+}
+
+// ── Modal ──
+function showModal() {
+  const p = getForm();
+  if (!p.co) { toast('⚠️ 請填寫客戶公司名稱'); return; }
+  generateConclusion();
+  g('strategic-modal').classList.add('open');
+  switchTab('tab-a');
+}
+function closeModal() {
+  g('strategic-modal').classList.remove('open');
+}
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('on', p.dataset.tab === tab));
+  if (tab === 'tab-c') generateConclusion();
+}
+function updateSlider(id, valId) {
+  g(valId).textContent = g(id).value;
+  const scores = ['sl-space','sl-comm','sl-famil','sl-time','sl-resource'].map(s => parseInt(g(s).value));
+  g('score-total-disp').textContent = scores.reduce((a,b) => a+b, 0);
+  generateConclusion();
+}
+function generateConclusion() {
+  const scores = ['sl-space','sl-comm','sl-famil','sl-time','sl-resource'].map(s => parseInt(g(s)?.value || 3));
+  const total = scores.reduce((a,b) => a+b, 0);
+  g('score-total-disp').textContent = total;
+
+  const q3 = getSC('sg-q3budget');
+  const q4 = getSC('sg-q4keyman');
+  const budgetFail = q3.includes('< 100') || q3.includes('比較便宜') || q3.includes('比較');
+  const keymanFail = q4.includes('委員會');
+  const kr1 = g('okr-kr1')?.checked;
+  const kr2 = g('okr-kr2')?.checked;
+  const kr3 = g('okr-kr3')?.checked;
+
+  let type, cls, txt;
+  if (budgetFail || keymanFail) {
+    type = '婉拒案';
+    cls = 'vt-reject';
+    const reason = [budgetFail && '預算未達 100 萬門檻', keymanFail && '無法直接對決策者'].filter(Boolean).join('、');
+    txt = `本案${reason}，依進案篩選手冊一票否決原則，建議直接婉拒，不進入正式評估。請聯繫窗口致謝並說明好奇心的承接條件，保留未來合作可能。`;
+  } else if (total >= 20 && kr1) {
+    type = '核心創意案';
+    cls = 'vt-creative';
+    txt = `本案五指標總分 ${total}/25，達到核心創意案門檻，且符合 O1-KR1（毛利≥35%）目標。建議優先接案，指派核心企劃負責，並依旺/淡季規劃提案準備時間。`;
+  } else if (total >= 20 && kr3) {
+    type = '核心創意案（品牌加分）';
+    cls = 'vt-creative';
+    txt = `本案五指標總分 ${total}/25，執行品質高，且有機會成為作品集案例（O2-KR1）。建議接案，重視提案品質，將好奇心創意DNA融入執行。`;
+  } else if (total >= 14) {
+    type = '潛力創意案';
+    cls = 'vt-potential';
+    txt = `本案五指標總分 ${total}/25，具備接案潛力，但部分條件尚待確認。建議接案同時回報負責人，對低分指標（${scores.map((s,i)=>s<=2?['企劃空間','溝通品質','執行熟悉度','時間充裕度','資源穩定度'][i]:'').filter(Boolean).join('、')||'請確認'}）制定應對計劃。`;
+  } else if (kr2) {
+    type = '標準麵包案';
+    cls = 'vt-bread';
+    txt = `本案五指標總分 ${total}/25，創意空間有限，但符合 O1-KR2 麵包案 Package 條件。建議走標準 Package 流程，嚴格控管執行成本，確保現金流健康。`;
+  } else {
+    type = '婉拒案';
+    cls = 'vt-reject';
+    txt = `本案五指標總分 ${total}/25，未達創意案或麵包案標準，建議婉拒或暫緩。請回報負責人做最終決策，保留書面記錄供日後參考。`;
+  }
+
+  const box = g('verdict-box');
+  box.className = 'verdict-box ' + cls;
+  box.innerHTML = `<div class="verdict-type">${type}</div><div class="verdict-txt">${txt}</div>`;
+  if (g('f-verdict')) g('f-verdict').value = type;
+  if (g('f-verdict-txt')) g('f-verdict-txt').value = txt;
+  if (g('f-total-score')) g('f-total-score').value = total;
+}
+async function finalSave() {
+  generateConclusion();
+  closeModal();
+  await saveProj();
+}
+
 // ── Render list ──
 function renderList() {
   const q = (g('q')?.value || '').toLowerCase();
   const now = new Date();
   const ym = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0');
-  const sm = { new:['tn','待評估'], review:['tr','評估中'], pitch:['tok','確認提案'], win:['tok','得案'], lose:['tf','未得案'] };
+  const sm = { new:['tn','待評估'], creative:['tr','創意案'], bread:['tr','麵包案'], veto:['tf','已否決'], pitch:['tok','確認提案'], win:['tok','得案'], lose:['tf','未得案'] };
   g('s-total').textContent = DB.length;
-  g('s-rev').textContent   = DB.filter(p => p.status === 'review').length;
+  g('s-rev').textContent   = DB.filter(p => p.status === 'creative' || p.status === 'review').length;
   g('s-ok').textContent    = DB.filter(p => p.status === 'pitch' || p.status === 'win').length;
   g('s-month').textContent = DB.filter(p => p.date?.startsWith(ym)).length;
   const fil = DB.filter(p => !q || [p.co,p.brand,p.proj,p.cname,p.owner].some(v => v?.toLowerCase().includes(q)));
@@ -868,13 +1247,14 @@ function openDetail(id) {
   g('d-name').textContent = (p.proj||p.co) + (p.proj&&p.co ? ' — '+p.co : '');
   const dt = p.date ? new Date(p.date).toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric'}) : '';
   g('d-sub').textContent = [dt&&'進案 '+dt, p.cname&&'窗口：'+p.cname+(p.ctitle?' '+p.ctitle:''), p.owner&&'負責：'+p.owner].filter(Boolean).join('　');
-  const sm = { new:['tn','待評估'], review:['tr','評估中'], pitch:['tok','確認提案'], win:['tok','得案'], lose:['tf','未得案'] };
+  const sm = { new:['tn','待評估'], creative:['tr','創意案'], bread:['tr','麵包案'], veto:['tf','已否決'], pitch:['tok','確認提案'], win:['tok','得案'], lose:['tf','未得案'] };
   const [sc, sl] = sm[p.status] || ['',''];
   g('d-tags').innerHTML = [
     '<span class="tag '+sc+'">'+sl+'</span>',
+    p.verdict && '<span class="tag" style="background:var(--redl);color:var(--red)">🎯 '+p.verdict+'</span>',
+    p.totalScore && '<span class="tag">評分 '+p.totalScore+'/25</span>',
     p.budget && '<span class="tag">💰 '+p.budget+'</span>',
     p.type?.length && '<span class="tag">'+p.type[0]+'</span>',
-    p.feas && '<span class="tag">'+p.feas+'</span>',
     p.pitchDate && '<span class="tag">📅 提案 '+p.pitchDate+'</span>'
   ].filter(Boolean).join('');
 
@@ -886,6 +1266,21 @@ function openDetail(id) {
   };
 
   g('d-secs').innerHTML = [
+    p.stage1result ? sec('階段一 · 第一次接觸', [
+      row('來源判斷',p.q1src), row('案例偏好',p.q2proj), row('偏好判斷',p.q2judge),
+      row('預算情境',p.q3budget), row('Keyman 確認',p.q4keyman),
+      row('階段一結論',p.stage1result==='veto'?'明顯否決':p.stage1result==='creative'?'創意案評估':p.stage1result==='bread'?'麵包案流程':p.stage1result),
+      row('備註',p.stage1note)
+    ]) : '',
+    p.verdict ? sec('🎯 進案判定報告', [
+      row('判定結果',p.verdict),
+      row('五指標總分',p.totalScore ? p.totalScore+'/25' : ''),
+      row('企劃空間',p.slSpace ? p.slSpace+'/5' : ''), row('溝通品質',p.slComm ? p.slComm+'/5' : ''),
+      row('執行熟悉度',p.slFamil ? p.slFamil+'/5' : ''), row('時間充裕度',p.slTime ? p.slTime+'/5' : ''),
+      row('資源穩定度',p.slResource ? p.slResource+'/5' : ''),
+      row('OKR',[p.okrKr1&&'KR1創意毛利',p.okrKr2&&'KR2麵包Package',p.okrKr3&&'KR3品牌傳遞',p.okrKr4&&'KR4 IP聯動'].filter(Boolean).join('、')),
+      row('判定說明',p.verdictTxt)
+    ]) : '',
     sec('一 · 品牌介紹、目前現況', [
       row('產業別',p.industry), row('官網',p.url),
       row('品牌介紹',p.brandIntro), row('目前現況',p.brandStatus),
@@ -896,22 +1291,22 @@ function openDetail(id) {
       row('時',p.when), row('地',p.where), row('物',p.things),
       row('預算',p.budget+(p.budgetN?' · '+p.budgetN:'')), row('需求說明',p.req)
     ]),
-    sec('三 · 專案目標', [
+    sec('三 · 專案目標 & AI 分析', [
       row('Must Have',p.musthave), row('專案關鍵',p.key),
       row('希望完成',p.goals?.join('、')), row('關鍵目標',p.kpi),
       row('一定要包含',p.must), row('需求背景',p.why),
-      row('目標受眾',p.ta), row('渠道',p.channel), row('可提供資源',p.resource)
+      row('目標受眾',p.ta), row('渠道',p.channel), row('可提供資源',p.resource),
+      row('核心問題',p.coreProblem), row('資訊缺口',p.infoGaps), row('下一步建議',p.nextSteps)
     ]),
     sec('五 · 提案相關', [
       row('客戶呈報',p.reportDate), row('提案日期',p.pitchDate),
       row('Keyman',p.keyman), row('交付內容',p.deliverable?.join('、')), row('備註',p.pitchN)
     ]),
     sec('內部 Debrief', [
-      row('窗口評估',p.contactScore), row('好客戶條件',p.criteria?.join('、')),
-      row('觀察',p.obs), row('Debrief',p.debrief),
-      row('可行性',p.feas), row('討論方式',p.discuss), row('內部備註',p.intN)
+      row('窗口評估',p.contactScore), row('觀察',p.obs), row('Debrief',p.debrief),
+      row('可行性',p.feas), row('內部備註',p.intN)
     ])
-  ].join('');
+  ].filter(Boolean).join('');
 
   showDetail();
 }
