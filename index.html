@@ -159,6 +159,8 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
 .modal-footer{padding:.9rem 1.25rem;border-top:1px solid var(--bd);display:flex;justify-content:flex-end;gap:8px;background:var(--sf);}
 .score-total{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2);margin-bottom:.75rem;padding:.6rem .75rem;background:var(--s2);border-radius:7px;}
 .score-num{font-size:16px;font-weight:700;color:var(--red);}
+.sl-sem{font-size:11px;font-weight:500;margin-top:4px;padding:3px 8px;border-radius:5px;background:var(--s2);color:var(--t2);transition:all .2s;}
+.sl-scale{display:flex;justify-content:space-between;font-size:10px;color:var(--t3);margin-top:3px;}
 </style>
 </head>
 <body>
@@ -247,10 +249,10 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
       <div class="s1-q">
         <div class="s1-ql"><div class="s1-qnum">3</div>預算門檻確認 <span style="color:var(--red);font-size:10px;">100萬關鍵</span></div>
         <div class="sc2g" id="sg-q3budget" style="flex-direction:column;gap:4px;">
-          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this)">客戶主動給預算 ≥ 100萬 ✓</button>
-          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this)">我方開價，客戶認真考慮 ✓</button>
-          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this)" data-warn="1">開價後說別人比較便宜 →麵包/婉拒</button>
-          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this)" data-warn="1">預算明確 &lt; 100萬 ✗</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this);syncBudgetHint(false)">客戶主動給預算 ≥ 100萬 ✓</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this);syncBudgetHint(false)">我方開價，客戶認真考慮 ✓</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this);syncBudgetHint(true)" data-warn="1">開價後說別人比較便宜 →麵包/婉拒</button>
+          <button class="sc2btn" onclick="pickSC(this,'sg-q3budget');s1BudgetCheck(this);syncBudgetHint(true)" data-warn="1">預算明確 &lt; 100萬 ✗</button>
         </div>
         <div class="s1-warn" id="s1-budget-warn">⚠ 一票否決項目：預算不符合門檻，建議直接婉拒</div>
       </div>
@@ -268,7 +270,7 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
     <!-- 階段一結論列 -->
     <div style="padding:.65rem 1.1rem;border-top:1px solid rgba(232,56,74,.2);background:var(--redl);display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
       <div style="font-size:12px;font-weight:600;color:var(--red);flex-shrink:0;">階段一結論</div>
-      <select class="fs" id="f-stage1result" style="flex:1;min-width:160px;max-width:260px;font-size:12px;">
+      <select class="fs" id="f-stage1result" style="flex:1;min-width:160px;max-width:260px;font-size:12px;" onchange="syncStage1Result(this.value)">
         <option value="">待評估</option>
         <option value="veto">明顯否決（預算不足/無法對 keyman）</option>
         <option value="creative">進入創意案正式評估</option>
@@ -357,8 +359,8 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
   <!-- 一、品牌介紹 -->
   <div class="fsec">
     <div class="fsh" onclick="togSec(this)">
-      <div class="snum">一</div>
-      <div><div class="fst">品牌介紹 · 目前現況</div><div class="fss">產業別、品牌簡述、過往活動、聯繫動機</div></div>
+      <div class="fsi red">🏷️</div>
+      <div><div class="fst">品牌背景 · 目前現況</div><div class="fss">產業別、品牌簡述、過往活動、聯繫動機</div></div>
       <div class="farr open">▶</div>
     </div>
     <div class="fsb">
@@ -401,7 +403,7 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
   <!-- 二、活動基本資訊 -->
   <div class="fsec">
     <div class="fsh" onclick="togSec(this)">
-      <div class="snum">二</div>
+      <div class="fsi red">📋</div>
       <div><div class="fst">活動基本資訊</div><div class="fss">人 · 事 · 時 · 地 · 物 · 預算</div></div>
       <div class="farr open">▶</div>
     </div>
@@ -430,7 +432,7 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
         </div>
       </div>
       <div class="fr c2">
-        <div class="fg"><label class="fl">專案預算（NTD）</label>
+        <div class="fg"><label class="fl">專案預算（NTD）<span id="budget-sync-hint" style="display:none;color:var(--red);font-size:10px;font-weight:600;margin-left:4px;">⚠ 已標記 &lt;100萬</span></label>
           <select class="fs" id="f-budget">
             <option value="">請選擇</option><option value="20–49萬">20 – 49 萬</option>
             <option value="50–99萬">50 – 99 萬</option><option value="100–150萬">100 – 150 萬</option>
@@ -448,8 +450,8 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
   <!-- 三、專案目標 -->
   <div class="fsec">
     <div class="fsh" onclick="togSec(this)">
-      <div class="snum">三</div>
-      <div><div class="fst">專案目標</div><div class="fss">Must Have · 專案關鍵 · 希望完成</div></div>
+      <div class="fsi red">🎯</div>
+      <div><div class="fst">專案目標 & 需求分析</div><div class="fss">Must Have · 核心問題 · 資訊缺口</div></div>
       <div class="farr open">▶</div>
     </div>
     <div class="fsb">
@@ -489,8 +491,8 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
   <!-- 五、提案相關 -->
   <div class="fsec">
     <div class="fsh" onclick="togSec(this)">
-      <div class="snum">五</div>
-      <div><div class="fst">提案相關</div><div class="fss">提案時間 · Keyman · 交付內容</div></div>
+      <div class="fsi red">📅</div>
+      <div><div class="fst">提案時程 & 交付</div><div class="fss">提案時間 · Keyman · 交付內容</div></div>
       <div class="farr open">▶</div>
     </div>
     <div class="fsb">
@@ -624,34 +626,40 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
         <span style="font-size:11px;color:var(--t3);">≥20 核心創意案 ｜ 14–19 潛力創意案 ｜ &lt;14 考慮麵包案</span>
       </div>
       <div class="sl-grp">
-        <div class="sl-row"><span class="sl-lbl">企劃空間（客戶願意接受創意建議）</span><span class="sl-val" id="sl-space-v">3</span></div>
+        <div class="sl-row"><span class="sl-lbl">企劃空間（客戶接受創意建議的程度）</span><span class="sl-val" id="sl-space-v">3</span></div>
         <input type="range" id="sl-space" min="1" max="5" value="3" oninput="updateSlider('sl-space','sl-space-v')">
-        <div class="sl-scale"><span>很低</span><span>普通</span><span>很高</span></div>
+        <div class="sl-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div id="sl-space-sem" class="sl-sem">🤔 普通，視提案而定</div>
       </div>
       <div class="sl-grp">
-        <div class="sl-row"><span class="sl-lbl">溝通品質（需求具體、主動給預算、修改有邏輯）</span><span class="sl-val" id="sl-comm-v">3</span></div>
+        <div class="sl-row"><span class="sl-lbl">溝通品質（需求具體 · 主動給預算 · 修改有邏輯）</span><span class="sl-val" id="sl-comm-v">3</span></div>
         <input type="range" id="sl-comm" min="1" max="5" value="3" oninput="updateSlider('sl-comm','sl-comm-v')">
-        <div class="sl-scale"><span>很差</span><span>普通</span><span>很好</span></div>
+        <div class="sl-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div id="sl-comm-sem" class="sl-sem">🤔 普通，一般溝通效率</div>
       </div>
       <div class="sl-grp">
         <div class="sl-row"><span class="sl-lbl">執行熟悉度（同類型案，毛利曾 ≥ 35%）</span><span class="sl-val" id="sl-famil-v">3</span></div>
         <input type="range" id="sl-famil" min="1" max="5" value="3" oninput="updateSlider('sl-famil','sl-famil-v')">
-        <div class="sl-scale"><span>全新領域</span><span>有過</span><span>非常熟</span></div>
+        <div class="sl-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div id="sl-famil-sem" class="sl-sem">🤔 有過但不熟，需要回顧</div>
       </div>
       <div class="sl-grp">
         <div class="sl-row"><span class="sl-lbl">時間充裕度（旺季 3 週 / 淡季 2 週準備）</span><span class="sl-val" id="sl-time-v">3</span></div>
         <input type="range" id="sl-time" min="1" max="5" value="3" oninput="updateSlider('sl-time','sl-time-v')">
-        <div class="sl-scale"><span>非常趕</span><span>勉強</span><span>非常充裕</span></div>
+        <div class="sl-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div id="sl-time-sem" class="sl-sem">🤔 勉強夠用</div>
       </div>
       <div class="sl-grp">
-        <div class="sl-row"><span class="sl-lbl">資源穩定度（預算、人力、資訊都明確）</span><span class="sl-val" id="sl-resource-v">3</span></div>
+        <div class="sl-row"><span class="sl-lbl">資源穩定度（預算 · 人力 · 資訊都明確）</span><span class="sl-val" id="sl-resource-v">3</span></div>
         <input type="range" id="sl-resource" min="1" max="5" value="3" oninput="updateSlider('sl-resource','sl-resource-v')">
-        <div class="sl-scale"><span>很不明確</span><span>普通</span><span>非常穩定</span></div>
+        <div class="sl-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div id="sl-resource-sem" class="sl-sem">🤔 基本明確，有些待確認</div>
       </div>
     </div>
 
     <!-- Tab B：OKR 對焦 -->
     <div class="tab-pane" data-tab="tab-b">
+      <div id="okr-budget-warn" style="display:none;background:var(--redl);border:1px solid rgba(232,56,74,.3);border-radius:8px;padding:.6rem .85rem;margin-bottom:.85rem;font-size:12px;color:var(--red);font-weight:500;">⚠️ 未達營收硬門檻 — 主表單預算低於 100 萬，依篩選手冊此案不符合 KR1 創意案條件</div>
       <div style="font-size:12px;color:var(--t2);margin-bottom:.9rem;">勾選本案符合的 OKR 指標，影響接案優先度與案型判定。</div>
       <div class="okr-grp">
         <div class="okr-krlbl">O1 · 改善營收結構</div>
@@ -693,6 +701,24 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
     <div class="modal-footer">
       <button class="btn bs" onclick="closeModal()">取消</button>
       <button class="btn bp" onclick="finalSave()">✅ 確認並儲存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Slack Summary Modal ── -->
+<div class="modal-ov" id="slack-modal">
+  <div class="modal" style="max-width:520px;">
+    <div class="modal-hdr">
+      <h2>✅ 儲存成功｜回報文案已生成</h2>
+      <button class="modal-close" onclick="g('slack-modal').classList.remove('open')">×</button>
+    </div>
+    <div style="padding:1.1rem 1.25rem;">
+      <div style="font-size:11px;color:var(--t2);margin-bottom:.6rem;">以下為 Slack 格式回報文案，可直接貼入頻道：</div>
+      <textarea id="slack-text" class="fta" style="min-height:220px;font-family:monospace;font-size:12px;line-height:1.65;background:var(--s2);" readonly></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn bs" onclick="g('slack-modal').classList.remove('open');showList()">關閉，回列表</button>
+      <button class="btn bp" id="slack-copy-btn" onclick="copySlackText()">📋 一鍵複製</button>
     </div>
   </div>
 </div>
@@ -1099,7 +1125,9 @@ async function saveProj() {
     await sbFetch('POST', { id: p.id, data: p });
     if (editId) { const i = DB.findIndex(x => x.id === editId); if (i !== -1) DB[i] = p; }
     else DB.unshift(p);
-    editId = null; toast('✅ 已儲存'); showList();
+    editId = null;
+    renderList();
+    showSlackSummary(p);
   } catch(e) { toast('⚠️ 儲存失敗，請確認網路'); }
 }
 function editProj() {
@@ -1121,20 +1149,38 @@ async function delProj() {
   renderList(); toast('已刪除'); showList();
 }
 
-// ── Stage 1 warning helpers ──
+// ── Stage 1 helpers & auto-sync ──
 function s1BudgetCheck(btn) {
-  const warn = g('s1-budget-warn');
-  warn.style.display = btn.dataset.warn ? 'block' : 'none';
+  g('s1-budget-warn').style.display = btn.dataset.warn ? 'block' : 'none';
 }
 function s1KeymanCheck(btn) {
-  const warn = g('s1-keyman-warn');
-  warn.style.display = btn.dataset.warn ? 'block' : 'none';
+  g('s1-keyman-warn').style.display = btn.dataset.warn ? 'block' : 'none';
+}
+function syncBudgetHint(isLow) {
+  const hint = g('budget-sync-hint');
+  if (hint) hint.style.display = isLow ? 'inline' : 'none';
+  // If formal budget field is empty and it's a low-budget situation, keep it empty but hint is shown
+}
+function syncStage1Result(val) {
+  const statusMap = { veto:'veto', creative:'creative', bread:'bread' };
+  if (statusMap[val]) g('f-status').value = statusMap[val];
 }
 
 // ── Modal ──
+const SL_SEM = {
+  'sl-space': ['','❌ 客戶極度保守，只照指示執行','😐 空間有限，偏好安全牌','🤔 普通，視提案而定','😊 開放討論，願意嘗試新方向','🚀 具備實驗精神，高度信任創意'],
+  'sl-comm':  ['','😩 需求模糊，改稿說不清楚','😐 基本溝通，但邏輯不穩','🤔 普通，一般溝通效率','😊 清楚表達，修改有理由','🤝 頂級窗口，需求具體且主動給預算'],
+  'sl-famil': ['','🆕 全新領域，高學習成本','📚 有點陌生，需要較多準備','🤔 有過但不熟，需要回顧','👌 熟悉，曾做過且效果不錯','⭐ 非常熟練，毛利曾達 35%+'],
+  'sl-time':  ['','🔥 非常緊迫，無法保證品質','⏰ 有點趕，需要加速','🤔 勉強夠用','😊 充裕，可以好好準備','✨ 非常充裕，能把提案做到最好'],
+  'sl-resource':['','❓ 預算/資訊/人力都不明確','🔍 部分資訊缺失，需要追問','🤔 基本明確，有些待確認','📋 大部分清楚，可以開始規劃','✅ 非常明確，預算人力時程全確認']
+};
 function showModal() {
   const p = getForm();
   if (!p.co) { toast('⚠️ 請填寫客戶公司名稱'); return; }
+  // Budget warning in Tab B
+  const budgetLow = ['20–49萬','50–99萬'].includes(p.budget) || g('budget-sync-hint')?.style.display === 'inline';
+  const warn = g('okr-budget-warn');
+  if (warn) warn.style.display = budgetLow ? 'block' : 'none';
   generateConclusion();
   g('strategic-modal').classList.add('open');
   switchTab('tab-a');
@@ -1143,12 +1189,15 @@ function closeModal() {
   g('strategic-modal').classList.remove('open');
 }
 function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
-  document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('on', p.dataset.tab === tab));
+  document.querySelectorAll('#strategic-modal .tab-btn').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
+  document.querySelectorAll('#strategic-modal .tab-pane').forEach(p => p.classList.toggle('on', p.dataset.tab === tab));
   if (tab === 'tab-c') generateConclusion();
 }
 function updateSlider(id, valId) {
-  g(valId).textContent = g(id).value;
+  const v = parseInt(g(id).value);
+  g(valId).textContent = v;
+  const sem = g(id + '-sem');
+  if (sem && SL_SEM[id]) sem.textContent = SL_SEM[id][v] || '';
   const scores = ['sl-space','sl-comm','sl-famil','sl-time','sl-resource'].map(s => parseInt(g(s).value));
   g('score-total-disp').textContent = scores.reduce((a,b) => a+b, 0);
   generateConclusion();
@@ -1205,6 +1254,61 @@ async function finalSave() {
   generateConclusion();
   closeModal();
   await saveProj();
+}
+
+// ── Slack summary ──
+function showSlackSummary(p) {
+  const txt = generateSlackText(p);
+  g('slack-text').value = txt;
+  g('slack-copy-btn').textContent = '📋 一鍵複製';
+  g('slack-modal').classList.add('open');
+}
+function generateSlackText(p) {
+  const verdictEmoji = { '核心創意案':'🟢', '潛力創意案':'🔵', '標準麵包案':'🟡', '婉拒案':'🔴' };
+  const ve = verdictEmoji[p.verdict?.split('（')[0]] || '⚪';
+  const okrList = [
+    p.okrKr1 && '✅ O1-KR1 創意案毛利 ≥ 35%',
+    p.okrKr2 && '✅ O1-KR2 麵包案 Package',
+    p.okrKr3 && '✅ O2-KR1 品牌識別傳遞',
+    p.okrKr4 && '✅ O2-KR2 IP 資源聯動'
+  ].filter(Boolean);
+  const stage1map = { veto:'⛔ 明顯否決', creative:'🟢 創意案評估', bread:'🟡 麵包案流程', '':'待評估' };
+  const nextAction = p.verdict?.includes('核心創意') ? '指派核心企劃，啟動提案準備'
+    : p.verdict?.includes('潛力') ? '回報負責人，確認低分指標應對計劃'
+    : p.verdict?.includes('麵包') ? '走標準 Package 流程，嚴控執行成本'
+    : '回報負責人，考慮婉拒';
+  return [
+    `*🗂 進案回報｜${p.co || '（未填公司）'}*`,
+    p.proj ? `> ${p.proj}` : '',
+    ``,
+    `📋 *基本資訊*`,
+    `• 客戶：${p.co || '—'}${p.brand && p.brand !== p.co ? ' / ' + p.brand : ''}`,
+    `• 窗口：${[p.cname, p.ctitle].filter(Boolean).join(' ') || '—'}`,
+    `• 進案日期：${p.date || '—'}  負責：${p.owner || '—'}`,
+    `• 預算：${p.budget || '待確認'}`,
+    ``,
+    `🎯 *案型初判*：${stage1map[p.stage1result || ''] || p.stage1result || '待評估'}`,
+    ``,
+    `${ve} *判定結果：${p.verdict || '尚未評估'}*`,
+    p.totalScore ? `五指標總分：${p.totalScore}/25` : '',
+    ``,
+    okrList.length ? `*OKR 符合度*\n${okrList.join('\n')}` : '*OKR 對焦*：未勾選',
+    ``,
+    `*📌 下一步行動*`,
+    `→ ${nextAction}`,
+    p.nextSteps ? p.nextSteps.split('\n').map(l => `  • ${l}`).join('\n') : '',
+    ``,
+    `_由 HAOQI 進案系統自動生成 · ${new Date().toLocaleDateString('zh-TW')}_`
+  ].filter(v => v !== '').join('\n');
+}
+function copySlackText() {
+  const ta = g('slack-text');
+  navigator.clipboard.writeText(ta.value).catch(() => {
+    ta.select(); document.execCommand('copy');
+  });
+  const btn = g('slack-copy-btn');
+  btn.textContent = '✅ 已複製！';
+  setTimeout(() => btn.textContent = '📋 一鍵複製', 2000);
 }
 
 // ── Render list ──
