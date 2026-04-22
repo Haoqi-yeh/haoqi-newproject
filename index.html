@@ -542,6 +542,7 @@ input[type=range]{width:100%;accent-color:var(--red);height:5px;cursor:pointer;m
       <div class="dht">
         <div><div class="dn" id="d-name"></div><div class="ds" id="d-sub"></div></div>
         <div class="da">
+          <button class="btn bs" onclick="copyDetailLink()" id="copy-link-btn">🔗 複製連結</button>
           <button class="btn bs" onclick="editProj()">✏️ 編輯</button>
           <button class="btn bd2" onclick="delProj()">🗑 刪除</button>
         </div>
@@ -835,6 +836,7 @@ async function dbSaveAll() {
 function showList() {
   ['v-list','v-form','v-detail'].forEach((id,i) => g(id).className = 'view' + (i===0?' on':''));
   g('nav-list').className = 'hb on'; g('nav-new').className = 'hb';
+  history.replaceState(null, '', location.pathname + location.search);
   renderList();
 }
 function showNew() {
@@ -843,6 +845,7 @@ function showNew() {
   g('form-ttl').textContent = '新增進案';
   ['v-list','v-form','v-detail'].forEach((id,i) => g(id).className = 'view' + (i===1?' on':''));
   g('nav-list').className = 'hb'; g('nav-new').className = 'hb on';
+  history.replaceState(null, '', location.pathname + location.search);
 }
 function showDetail() {
   ['v-list','v-form','v-detail'].forEach((id,i) => g(id).className = 'view' + (i===2?' on':''));
@@ -1418,6 +1421,7 @@ function renderList() {
 // ── Open detail ──
 function openDetail(id) {
   curId = id; const p = DB.find(x => x.id === id); if (!p) return;
+  history.replaceState(null, '', '#/p/' + id);
   g('d-name').textContent = (p.proj||p.co) + (p.proj&&p.co ? ' — '+p.co : '');
   const dt = p.date ? new Date(p.date).toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric'}) : '';
   g('d-sub').textContent = [dt&&'進案 '+dt, p.cname&&'窗口：'+p.cname+(p.ctitle?' '+p.ctitle:''), p.owner&&'負責：'+p.owner].filter(Boolean).join('　');
@@ -1540,8 +1544,34 @@ function updateModalOKRSummary() {
   }).join('');
 }
 
+// ── Deep-link routing ──
+function checkHash() {
+  const m = location.hash.match(/^#\/p\/(.+)/);
+  if (m) {
+    const p = DB.find(x => x.id === m[1]);
+    if (p) { openDetail(p.id); return; }
+    toast('⚠ 找不到該進案，可能已被刪除');
+  }
+}
+function copyDetailLink() {
+  const url = location.href;
+  navigator.clipboard.writeText(url).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = url; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+  });
+  const btn = g('copy-link-btn');
+  btn.textContent = '✅ 已複製！';
+  setTimeout(() => btn.textContent = '🔗 複製連結', 2000);
+}
+window.addEventListener('popstate', () => {
+  const m = location.hash.match(/^#\/p\/(.+)/);
+  if (m) { const p = DB.find(x => x.id === m[1]); if (p) openDetail(p.id); }
+  else showList();
+});
+
 // ── Init ──
-dbLoad();
+dbLoad().then(() => checkHash());
 
 </script>
 </body>
